@@ -27,6 +27,10 @@ var mongoose = require('mongoose');
 // connect to mongo
 var db = mongoose.connect('mongodb://localhost/edgarfilings');
 
+// require Mongoose model (that defines filings table)
+require('./model'); // defines the filings table
+// assign the table model to a variable (so we can query this table)
+var FilingEntry = mongoose.model('filings');
 
 // variables used
 var downloads = "./downloads/";
@@ -37,49 +41,6 @@ var edgarPath = "http://www.sec.gov/Archives/";
 	- add functionality to download it (we have that)
 	- update Mongo with the filename (so we download once)
 */
-
-/* Define the data */
-var Schema = mongoose.Schema;
-
-var FilingSchema = new Schema({
-	created: {
-		type: Date,
-		default: Date.now
-	},
-	coname: {
-		type: String,
-		default: ""
-	},
-	cik: {
-		type: String,
-		default: ""
-	},
-	formtype : {
-		type: String,
-		default: ""
-	},
-	filename : { // this is the url (not local filename)
-		type: String,
-		default: ""
-	},
-	fileId: {
-		type: Number 
-	},
-	header: {
-		type: {} // can be anything
-	},
-	downloaded: {
-		type: Boolean,
-		default: false
-	},
-	localfilename: {
-		type: String,
-		default: ""
-	}
-});
-
-// 'filings' is the collection (table) in Mongo
-var FilingEntry = mongoose.model('filings', FilingSchema);
 
 FilingEntry
 .find({formtype: "10-K"})
@@ -94,6 +55,8 @@ FilingEntry
 // function that processes the filings, and makes sure each filing is downloaded
 var processFilings = function(filings){
 	filings.forEach(function(f) {
+		// note: f is a record in Mongo, and has methods like f.save() to save changes on it!
+		// you can also define methods in the model (model.js), which would be accessible here as well
 		if (f.downloaded) {			
 			processFiling(f);
 		} else {

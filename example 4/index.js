@@ -21,7 +21,7 @@ var files = fs.readdirSync( myFilingsDir );
 
 // loop through files
 files.forEach(function(file){
-	console.log('> Parsing file ' + file);
+	console.log('Parsing file ' + file);
 	// read file
 	var fileRaw = fs.readFileSync( myFilingsDir +  file, "utf8");
 	// init filing10K module, returns header variables
