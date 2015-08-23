@@ -44,6 +44,5 @@ var FilingSchema = new Schema({
 	}
 });
 
-// 'filings' is the collection (table) in Mongo
-//var FilingEntry = mongoose.model('filings', FilingSchema);
-mongoose.model('filings', FilingSchema);
+// make this available 
+module.exports = mongoose.model('filings', FilingSchema);

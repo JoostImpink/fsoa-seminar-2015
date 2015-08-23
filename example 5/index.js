@@ -27,10 +27,8 @@ var mongoose = require('mongoose');
 // connect to mongo
 var db = mongoose.connect('mongodb://localhost/edgarfilings');
 
-// require Mongoose model (that defines filings table)
-require('./model'); // defines the filings table
-// assign the table model to a variable (so we can query this table)
-var FilingEntry = mongoose.model('filings');
+// require Mongoose model (that defines filings table). FilingEntry will allow us to query the database for this table
+var FilingEntry = require('./model'); // defines the filings table
 
 // variables used
 var downloads = "./downloads/";
