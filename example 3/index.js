@@ -1,6 +1,6 @@
 'use strict';
 /*
-	runn as: node index.js
+	run as: node index.js
 	dependencies: 
 		npm install fast-csv
 		npm install fs

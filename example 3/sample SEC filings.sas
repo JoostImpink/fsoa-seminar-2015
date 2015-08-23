@@ -11,10 +11,13 @@ data edgar2006;
 set edgar.filings;
 if '01mar2006'd <= date < '05mar2006'd;
 fileId = _N_;
+coname = COMPRESS(coname,'"') ; /* some conames have quotes, remove these */
 run;
 
+%let exportDir = C:\cygwin64\home\joost\projects\node-seminar\example 3\export from SAS;
+
 /* export as csv */
-proc export data= edgar2006 outfile="C:\cygwin64\home\joost\projects\node-seminar\example 3\export from SAS\filings.csv" dbms=csv replace; run;
+proc export data= edgar2006 outfile="&exportDir.\filings.csv" dbms=csv replace; run;
 
 /* first observations 
 
@@ -25,3 +28,11 @@ coname|formtype|cik|filename|date|fileId
 14159 capital (GP), LLC|4|1317493|edgar/data/1317493/0001144204-06-008352.txt|01MAR2006|5324924
 1717 CAPITAL MANAGEMENT COMPANY|X-17A-5|80869|edgar/data/80869/9999999997-06-024267.txt|03MAR2006|5324929
 */
+
+/* export to MongoDb */
+%let mongoimportPath = 'C:\Program Files\MongoDB\Server\3.0\bin\mongoimport.exe';
+X CD &exportDir; 
+systask command "&mongoimportPath -d edgarfilings -c filings --type csv --file filings.csv --headerline" ;
+
+
+
