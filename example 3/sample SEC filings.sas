@@ -18,6 +18,9 @@ run;
 
 /* export as csv */
 proc export data= edgar2006 outfile="&exportDir.\filings.csv" dbms=csv replace; run;
+/* export as txt */
+proc export data= edgar2006 outfile="&exportDir.\filings.txt" dbms=dlm  replace; delimiter="|"; run;
+
 
 /* first observations 
 

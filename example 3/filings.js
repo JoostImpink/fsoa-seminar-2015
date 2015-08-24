@@ -5,7 +5,7 @@ var fs = require('fs');
 var csv = require("fast-csv");
 
 /*
-	module to load filings.csv that was exported from SAS
+	module to load filings.txt that was exported from SAS
 
 	coname|formtype|cik|filename|date|fileId
 	1 800 FLOWERS COM INC|SC 13G/A|1084869|edgar/data/1084869/0000065103-06-000099.txt|03MAR2006|5324897
@@ -15,7 +15,7 @@ var csv = require("fast-csv");
 module.exports = {
 	
 	// location of SAS export with filing info (this could go into a config module)
-	file: "export from SAS/filings.csv",
+	file: "export from SAS/filings.txt",
 	/*
 		load: loads the filing.csv
 		success: callback function when done 		
