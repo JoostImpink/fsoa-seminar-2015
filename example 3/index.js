@@ -29,6 +29,7 @@ var loaded = function(filings){
 var download = function(filings){
 	filings.forEach(function (f){
 		// read filing from SEC Edgar
+		console.log('full path: ' + edgarPath + f.filename);
 		request( edgarPath + f.filename , function (error, response, body) {
 			// if done with no errors
 			if (!error && response.statusCode == 200) {

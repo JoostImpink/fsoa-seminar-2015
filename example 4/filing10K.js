@@ -66,7 +66,7 @@ module.exports = {
 		var header;
 		// text is required argument
 		if (!text) { return;}
-		console.log('text length', text.length);
+		//console.log('text length', text.length);
 		this.text = text;
 		// regex that will match the header
 		var headerRegex = /(^<SEC-HEADER>[\s\S]*?<\/SEC-HEADER>)/im;
@@ -84,7 +84,7 @@ module.exports = {
 		};	
 		// does filing contain HTML?
 		this.isHTML = ( text.search(/\<HTML\>/i) > - 1 ) ? true : false;
-		console.log('isHTML', this.isHTML);
+		//console.log('isHTML', this.isHTML);
 		return this.headerVars;
 	},
 	headerRegxHelper: function( text, regx ){
@@ -107,6 +107,8 @@ module.exports = {
 		var filingNoHTML = (this.isHTML) ? this.text.replace(/(<([^>]+)>)/ig,"") : this.text;
 		// match		
 		var matches=filingNoHTML.match(reportRegx);
+		// guard against having no matches
+		if(!matches) { return [];}
 		// loop through matches, we want 'in our opinion' or 'we have audited' in the text
 		matches.forEach( function(m){
 			if ( m.search('/in\s*our\s*opinion/m') || m.search('/we\s*have\s*audited/m') ) {
